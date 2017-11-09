@@ -7,5 +7,16 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>simpleweb</artifactId>
-
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+    <finalName>banking</finalName>
+  </build>
 </project>
