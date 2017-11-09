@@ -54,11 +54,13 @@ public class CustomerServiceTest {
     assertFalse(cs.transferMoney(3, 1, 1000));
   }
   
+  /**
   @Test(expected=DAOException.class)
   public void testTransferMoneyUnsuccessfullWithDiferrentCurrency() throws Exception {
     CustomerService cs = new CustomerService();
     assertFalse(cs.transferMoney(1, 4, 5));
   }
+  */
 
   @Test
   public void testCreateCustomer() throws Exception {
