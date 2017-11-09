@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>simplebusiness</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>curs.banking</groupId>
+  		<artifactId>simpledao</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
