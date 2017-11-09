@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import curs.banking.dao.AccountDAO;
 import curs.banking.dao.AddressDAO;
@@ -19,7 +21,7 @@ import curs.banking.model.TransactionType;
 
 public class CustomerService {
   // ASSOCIATES ONE CONNECTION TO INE THREAD
-  
+
   private static ThreadLocal<Connection> mThreadConn = new ThreadLocal<Connection>() {
     protected Connection initialValue() {
       try {
@@ -34,8 +36,9 @@ public class CustomerService {
   static final String DB_URL = "jdbc:h2:~/test;AUTO_SERVER=TRUE";
 
   public Connection getConnection() throws Exception {
+    Class.forName("org.h2.Driver");
     return DriverManager.getConnection(DB_URL, "SA", "");
-    //return mThreadConn.get();
+    // return mThreadConn.get();
   }
   // SE DAU
   // ACCOUNT1 - findById (1)
@@ -106,6 +109,16 @@ public class CustomerService {
         conn.rollback();
       }
       return cust;
+    } finally {
+      SQLUtils.closeQuietly(conn);
+    }
+  }
+
+  public Collection<Customer> loadAllCustomers() throws Exception {
+    Connection conn = getConnection();
+    try {
+      CustomerDAO cDAO = new CustomerDAO(conn);
+      return cDAO.findAll();
     } finally {
       SQLUtils.closeQuietly(conn);
     }

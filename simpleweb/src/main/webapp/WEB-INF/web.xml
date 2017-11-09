@@ -3,6 +3,6 @@
  "http://java.sun.com/dtd/web-app_3_0.dtd" >
 
 <web-app>
-  <display-name>My banking App</display-name>
-
+  <display-name>Banking App</display-name>
+  
 </web-app>

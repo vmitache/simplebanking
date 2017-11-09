@@ -15,6 +15,11 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>curs.banking</groupId>
+			<artifactId>simplebusiness</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
     <finalName>banking</finalName>
