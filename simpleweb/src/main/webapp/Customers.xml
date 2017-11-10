@@ -1,0 +1,12 @@
+<customers>
+  <customer>
+    <name>Vasile</name>
+    <varsta>22</varsta>
+    <sex>M</sex>
+  </customer>
+  <customer>
+    <name>Gheorghe</name>
+    <varsta>22</varsta>
+    <sex>M</sex>
+  </customer>
+</customers>

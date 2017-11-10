@@ -38,9 +38,18 @@ public class ShowCustomerListServlet extends HttpServlet {
 		CustomerService custService = new CustomerService();
 		try {
 			Collection<Customer> cl = custService.loadAllCustomers();
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listCustomers.jsp");
+			String contentType = request.getHeader("Accept");
+			String jspName = null;
+			if("application/json".equals(contentType)) {
+				jspName = "/listCustomersJSON.jsp";
+			} else {
+				jspName = "/listCustomers.jsp";
+
+			}
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspName);
 			//!!!!
-			request.setAttribute("cl", cl);
+			request.setAttribute("customers", cl);
 			dispatcher.forward(request,response);
 			
 			

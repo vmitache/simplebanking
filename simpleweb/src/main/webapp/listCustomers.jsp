@@ -10,7 +10,10 @@
 </head>
 <body>
 	<H1>Lista clienti</H1>
-	<TABLE>
+	<a href="<%= request.getContextPath() %>">HOME</a>
+		<!-- <a href="/banking">HOME</a>  -->
+	
+	<TABLE border="2">
 		<TR>
 			<TH>Nume</TH>
 			<TH>CNP</TH>
@@ -19,17 +22,21 @@
 			<TH>Sex</TH>
 		</TR>
 		<%
-			Collection<Customer> custList = (Collection<Customer>) request.getAttribute("cl");
+			Collection<Customer> custList = (Collection<Customer>) request.getAttribute("customers");
 			for (Customer cust : custList) {
 		%>
 		<TR>
 			<TD><%=cust.getName()%></TD>
 			<TD><%=cust.getSSN()%></TD>
 			<TD><%=cust.getAddress().getCity().getName()%></TD>
-
+			<TD><%= cust.getVarsta() %></TD>
+			<TD><%= cust.getSex() %></TD>
+		</TR>
 			<%
 				}
 			%>
-		
+			</TABLE>
+		<BR>
+		<a href="<%= request.getContextPath() %>/addCustomer.jsp">Adauga client</a>
 </body>
 </html>
