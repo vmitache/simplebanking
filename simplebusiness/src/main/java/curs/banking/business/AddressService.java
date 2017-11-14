@@ -3,6 +3,7 @@ package curs.banking.business;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import curs.banking.dao.CityDAO;
 import curs.banking.model.City;
@@ -19,6 +20,12 @@ public class AddressService {
   public City loadCityById(long pId) throws SQLException, Exception {
     try(Connection conn = getConnection()) {
       return new CityDAO(conn).findById(pId);
+    }
+  }
+  
+  public Collection<City> loadCities() throws SQLException,Exception {
+    try(Connection conn = getConnection()) {
+      return new CityDAO(conn).findAll();
     }
   }
   

@@ -40,16 +40,31 @@ public class CustomerAddServlet extends HttpServlet {
 		Customer cust = new Customer();
 		cust.setVarsta(varsta);
 		cust.setName(name);
-		cust.setSex(SexEnum.M);
+		if("M".equals(request.getParameter("sex"))) {
+			cust.setSex(SexEnum.M);
+		} else {
+			cust.setSex(SexEnum.F);
+
+		}
 		cust.setSSN(request.getParameter("cnp"));
 		Address addr = new Address();
-		addr.setNumber("22");
-		addr.setStreet("Popa Sapca");
-		addr.setPostalCode("85555");
+		addr.setNumber(request.getParameter("numar"));
+		addr.setStreet(request.getParameter("strada"));
+		addr.setPostalCode(request.getParameter("cp"));
 		AddressService as = new AddressService();
 		CustomerService cs = new CustomerService();
+		System.out.println("City is:" + request.getParameter("city"));
+		if(request.getParameter("city") == null) {
+			// ???? MA INTORC IN PAGINA CU EROARE
+		}
 		try {
-			City c = as.loadCityById(1);
+			long cityId = Long.parseLong(request.getParameter("city"));
+		} catch(NumberFormatException ex) {
+			ex.printStackTrace();
+			// ???? MA INTORC IN PAGINA CU EROARE
+		}
+		try {
+			City c = as.loadCityById(Long.parseLong(request.getParameter("city")));
 			addr.setCity(c);
 			cust.setAddress(addr);
 			cs.createCustomer(cust);
