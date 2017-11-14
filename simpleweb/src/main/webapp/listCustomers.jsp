@@ -23,6 +23,7 @@
 			<TH>Strada</TH>
 			<TH>Numar</TH>
 			<TH>Cod postal</TH>
+			<TH>Accounts</TH>
 		</TR>
 		<%
 			Collection<Customer> custList = (Collection<Customer>) request.getAttribute("customers");
@@ -37,7 +38,12 @@
 			<TD><%=cust.getAddress().getStreet()%></TD>
 			<TD><%=cust.getAddress().getNumber()%></TD>
 			<TD><%=cust.getAddress().getPostalCode()%></TD>
-
+			<TD>
+				<form action="<%= request.getContextPath() %>/addAccountPerCustomer.jsp">
+				  <input type="hidden" value="<%= cust.getId() %>" name="custId">
+				  <input type="submit" value="Adauga cont">
+				</form>
+			</TD>
 		</TR>
 		<%
 			}

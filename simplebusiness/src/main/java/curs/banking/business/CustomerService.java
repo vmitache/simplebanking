@@ -10,11 +10,13 @@ import java.util.List;
 
 import curs.banking.dao.AccountDAO;
 import curs.banking.dao.AddressDAO;
+import curs.banking.dao.BankDAO;
 import curs.banking.dao.CustomerDAO;
 import curs.banking.dao.DAOException;
 import curs.banking.dao.SQLUtils;
 import curs.banking.dao.TransactionDAO;
 import curs.banking.model.Account;
+import curs.banking.model.Bank;
 import curs.banking.model.Customer;
 import curs.banking.model.Transaction;
 import curs.banking.model.TransactionType;
@@ -116,6 +118,26 @@ public class CustomerService {
     try {
       CustomerDAO cDAO = new CustomerDAO(conn);
       return cDAO.findAll();
+    } finally {
+      SQLUtils.closeQuietly(conn);
+    }
+  }
+  
+  public Customer loadCustomerById(long pId) throws Exception {
+    Connection conn = getConnection();
+    try {
+      CustomerDAO cDAO = new CustomerDAO(conn);
+      return cDAO.findById(pId);
+    } finally {
+      SQLUtils.closeQuietly(conn);
+    }
+  }
+  
+  public Bank getBank() throws Exception {
+    Connection conn = getConnection();
+    try {
+      BankDAO bDAO = new BankDAO(conn);
+      return bDAO.findById(1);
     } finally {
       SQLUtils.closeQuietly(conn);
     }

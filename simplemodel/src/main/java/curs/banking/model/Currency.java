@@ -12,5 +12,14 @@ public enum Currency {
   public long getId() {
     return mId;
   }
+  
+  public static Currency getById(long pId) {
+	  for(Currency c : values()) {
+		  if(c.getId() == pId) {
+			  return c;
+		  }
+	  }
+	  return null;
+  }
    
 }
