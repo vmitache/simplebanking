@@ -28,15 +28,28 @@
 	 	   Suma: <input type="text" name="amount" value="0">
 	 	   <select name="accBeneficiar">
 	 	     <%
+	 	     		int i=0;
 	 	        for(Account a : accList) {
 	 	      %>
-	 	      	<option value="<%= a.getId() %>"><%= a.getIBAN() %>/<%= a.getCustomer().getName() %>
+	 	      	<option <%= i == 0 ? "selected='selected'" : "" %> value="<%= a.getId() %>"><%= a.getIBAN() %>/<%= a.getCustomer().getName() %>
 	 	      <%
+	 	      	i++;
 	 	      }
 	 	       %>
 	 	   </select>
-	 	   <input type="hidden" name="accPlatitor" value="<%= saccid %>">
+	 	   <input type="hidden" name="accPlatitor" value="<%= saccid %>"> <br>
+	 	   <%
+	 	     if(!accList.isEmpty()) {
+	 	   %>
 	 	   <input type="submit" value="Confirmare plata">
+	 	   <%
+	 	   	} else {
+	 	   %>
+	 	   	<B>No available corresponding account</B><br>
+	 	   	<a href="javascript:history.back()">Back</a>
+	 	   <% 
+	 	   	}
+	 	   %>
 	 </FORM>
 </body>
 </html>
