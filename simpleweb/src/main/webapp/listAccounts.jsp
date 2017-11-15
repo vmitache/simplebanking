@@ -10,7 +10,7 @@
 <title>Account list</title>
 </head>
 <body>
-	<H1>Lista counturi</H1>
+	<H1>Lista conturi</H1>
 	<a href="<%=request.getContextPath()%>">HOME</a>
 	<!-- <a href="/banking">HOME</a>  -->
 
@@ -23,12 +23,12 @@
 			<TH>CLIENT</TH>
 			<TH>CNP</TH>
 			<TH>BANCA</TH>
+			<TH>Plati</TH>
 		</TR>
 		<%
 			Collection<Account> accList = (Collection<Account>) request.getAttribute("accounts");
 			for (Account acc : accList) {
 		%>
-		<c:forEach items="accounts" var="acc">
 		 <TR>
 			<TD><%=acc.getIBAN()%></TD>
 			<TD><%=acc.getAccountType()%></TD>
@@ -37,9 +37,13 @@
 			<TD><%=acc.getCustomer().getName()%></TD>
 			<TD><%=acc.getCustomer().getSSN()%></TD>
 			<TD><%=acc.getBank().getName()%></TD>
-
+			<TD>
+				<form action="<%= request.getContextPath() %>/addPaymentPerAccount.jsp">
+				  <input type="hidden" value="<%= acc.getId() %>" name="accountId">
+				  <input type="submit" value="Adauga plata">
+				</form>
+			</TD>
 		</TR>
-		</c:forEach>
 		
 		
 		<%

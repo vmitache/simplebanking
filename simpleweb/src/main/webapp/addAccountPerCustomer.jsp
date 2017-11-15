@@ -58,11 +58,11 @@
 				}
 			%>
 			</select>
-Valuta : <select name="currency">
+			Valuta : <select name="currency">
 			<%
 				for (Currency cc : Currency.values()) {
 			%>
-			<option value="<%= cc.getId() %>"><%=cc.name()%></option>
+				<option value="<%= cc.getId() %>"><%=cc.name()%></option>
 
 			<%
 				}

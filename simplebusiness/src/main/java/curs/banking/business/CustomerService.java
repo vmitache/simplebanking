@@ -1,12 +1,10 @@
 package curs.banking.business;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import curs.banking.dao.AccountDAO;
 import curs.banking.dao.AddressDAO;
@@ -22,86 +20,19 @@ import curs.banking.model.Transaction;
 import curs.banking.model.TransactionType;
 
 public class CustomerService {
-  // ASSOCIATES ONE CONNECTION TO INE THREAD
+  private ConnectionFactory mConnFactory;
 
-  private static ThreadLocal<Connection> mThreadConn = new ThreadLocal<Connection>() {
-    protected Connection initialValue() {
-      try {
-        return DriverManager.getConnection(DB_URL, "SA", "");
-      } catch (SQLException e) {
-        e.printStackTrace();
-        return null;
-      }
-    }
-  };
-
-  static final String DB_URL = "jdbc:h2:~/test;AUTO_SERVER=TRUE";
-
-  public Connection getConnection() throws Exception {
-    Class.forName("org.h2.Driver");
-    return DriverManager.getConnection(DB_URL, "SA", "");
-    // return mThreadConn.get();
+  public CustomerService() {
+    mConnFactory = ConnectionFactory.factory();
   }
-  // SE DAU
-  // ACCOUNT1 - findById (1)
-  // ACCOUNT2 - findById (2)
-  // DE FACUT TRANSACTIE INTRE ACCOUNT1 si ACCOUNT2
-  // 1 - Transaction('D',ACCOUNT1,SUMA)
-  // 2 - ACCOUNT1.SOLD = ACCOUNT1.SOLD - SUMA
-  // 3 - Transaction('C',ACCOUNT2, SUMA)
-  // 4 - ACCOUNT2.SOLD = ACCOUN2.SOLA + SUMA
-
-  public boolean transferMoney(long pAccountDebitId, long pAccountCreditId, double pAmount)
-      throws SQLException, Exception {
-    try (Connection conn = getConnection()) {
-      conn.setAutoCommit(false);
-      AccountDAO accDAO = new AccountDAO(conn);
-      TransactionDAO transDAO = new TransactionDAO(conn);
-      Account accDebit = accDAO.findById(pAccountDebitId);
-      Account accCredit = accDAO.findById(pAccountCreditId);
-      if (!accDebit.getCurrency().equals(accCredit.getCurrency())) {
-        throw new DAOException("Different currency type");
-      }
-      if (accCredit.getAmount() >= pAmount) {
-        long transactionTS = new Date().getTime();
-        Transaction trans1 = new Transaction();
-        trans1.setAccount(accCredit);
-        trans1.setAmount(pAmount);
-        trans1.setTransactionTime(new Timestamp(transactionTS));
-        trans1.setTransactionType(TransactionType.D);
-
-        Transaction trans2 = new Transaction();
-        trans2.setAccount(accDebit);
-        trans2.setAmount(pAmount);
-        trans2.setTransactionTime(new Timestamp(transactionTS));
-        trans2.setTransactionType(TransactionType.C);
-
-        accCredit.setAmount(accCredit.getAmount() - pAmount);
-        accDebit.setAmount(accDebit.getAmount() + pAmount);
-        // ATOMIC!!!!
-        transDAO.insert(trans1);
-        transDAO.insert(trans2);
-        accDAO.update(accCredit);
-        accDAO.update(accDebit);
-        // ATOMIC!!!
-        conn.commit();
-        return true;
-      } else {
-        conn.rollback();
-        return false;
-      }
-    }
-  }
+  
 
   public Customer createCustomer(Customer pCustomer) throws Exception {
-    Connection conn = getConnection();
+    Connection conn = mConnFactory.getConnection();
     try {
       conn.setAutoCommit(false);
       AddressDAO addressDAO = new AddressDAO(conn);
-      if (false) {
-        throw new NullPointerException();
-      }
-
+   
       CustomerDAO custDAO = new CustomerDAO(conn);
       pCustomer.setAddress(addressDAO.insert(pCustomer.getAddress()));// BE AWARE
       Customer cust = custDAO.insert(pCustomer);
@@ -114,7 +45,7 @@ public class CustomerService {
   }
 
   public Collection<Customer> loadAllCustomers() throws Exception {
-    Connection conn = getConnection();
+    Connection conn = mConnFactory.getConnection();
     try {
       CustomerDAO cDAO = new CustomerDAO(conn);
       return cDAO.findAll();
@@ -124,7 +55,7 @@ public class CustomerService {
   }
   
   public Customer loadCustomerById(long pId) throws Exception {
-    Connection conn = getConnection();
+    Connection conn = mConnFactory.getConnection();
     try {
       CustomerDAO cDAO = new CustomerDAO(conn);
       return cDAO.findById(pId);
@@ -134,7 +65,7 @@ public class CustomerService {
   }
   
   public Bank getBank() throws Exception {
-    Connection conn = getConnection();
+    Connection conn = mConnFactory.getConnection();
     try {
       BankDAO bDAO = new BankDAO(conn);
       return bDAO.findById(1);
@@ -143,37 +74,5 @@ public class CustomerService {
     }
   }
 
-  public static void main(String[] pArgs) throws Exception {
-    CustomerService cs = new CustomerService();
-    System.out.println(cs.getConnection());
-    for (int i = 0; i < 10; i++) {
-      Thread.sleep(100);
-    }
-    System.out.println(cs.getConnection());
-    new Thread(() -> {
-      CustomerService cs1 = new CustomerService();
-      try {
-        System.out.println(cs1.getConnection());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }).start();
-    new Thread(() -> {
-      CustomerService cs1 = new CustomerService();
-      try {
-        System.out.println(cs1.getConnection());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }).start();
-    new Thread(() -> {
-      CustomerService cs1 = new CustomerService();
-      try {
-        System.out.println(cs1.getConnection());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }).start();
-  }
 
 }

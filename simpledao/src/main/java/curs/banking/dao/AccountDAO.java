@@ -11,7 +11,6 @@ import java.util.List;
 
 import curs.banking.model.Account;
 import curs.banking.model.AccountType;
-import curs.banking.model.Bank;
 import curs.banking.model.Currency;
 
 public class AccountDAO extends AbstractBaseDAO<Account> {
@@ -141,6 +140,27 @@ public class AccountDAO extends AbstractBaseDAO<Account> {
 	public void delete(Account pEntity) {
 		throw new DAOException("Not implemented!!!");
 
+	}
+
+	public Collection<Account> loadPossibleAccountsForPaymentFrom(Account pPaymentAccount) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Account> result = new ArrayList<>();
+		try {
+			stmt = mConnection.prepareStatement(getSQLForFindAll() + " WHERE id<>? AND CURRENCY_ID=?");
+			stmt.setLong(1, pPaymentAccount.getId());
+			stmt.setLong(2, pPaymentAccount.getCurrency().getId());
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				result.add(loadFromResultSet(rs));
+			}
+			return result;
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			SQLUtils.closeQuietly(rs, stmt);
+
+		}
 	}
 
 }
