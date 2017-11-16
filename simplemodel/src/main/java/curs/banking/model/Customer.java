@@ -1,5 +1,10 @@
 package curs.banking.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(Include.NON_NULL)
 public class Customer {
   private long mId;
   private String mName;
@@ -24,6 +29,7 @@ public class Customer {
     mName = pName;
   }
 
+  @JsonProperty("cnp")
   public String getSSN() {
     return mSSN;
   }
