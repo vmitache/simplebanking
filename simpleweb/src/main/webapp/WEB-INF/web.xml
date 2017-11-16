@@ -53,6 +53,7 @@
 
 	<login-config>
 		<auth-method>FORM</auth-method>
+		<realm-name>db</realm-name>
 		<form-login-config>
 			<form-login-page>/login.jsp</form-login-page>
 			<form-error-page>/login-failed.jsp</form-error-page>

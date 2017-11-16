@@ -35,7 +35,7 @@ create table bank.transaction(ID IDENTITY PRIMARY KEY,
    
 CREATE TABLE bank.users (
 	user_name varchar(20) NOT NULL PRIMARY KEY,
-	password varchar(32) NOT NULL
+	password varchar(128) NOT NULL
 );
 CREATE TABLE bank.roles (
 	role_name varchar(20) NOT NULL PRIMARY KEY
