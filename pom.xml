@@ -37,7 +37,102 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<!-- SETUP DB FOR TEST -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<dependencies>
+					<!-- specify the dependent jdbc driver here -->
+					<dependency>
+						<groupId>com.h2database</groupId>
+						<artifactId>h2</artifactId>
+						<version>1.4.196</version>
+					</dependency>
+
+				</dependencies>
+
+				<configuration>
+					<driver>org.h2.Driver</driver>
+					<url>jdbc:h2:~/test;AUTO_SERVER=TRUE</url>
+					<username>SA</username>
+					<password></password>
+					<!--all executions are ignored if -Dmaven.test.skip=true -->
+					<skip>${maven.test.skip}</skip>
+				</configuration>
+
+				<executions>
+					<execution>
+            <id>drop-schema-before-test-if-any</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <autocommit>true</autocommit>
+              <sqlCommand>drop schema bank if exists</sqlCommand>
+              <!-- ignore error when database is not available -->
+              <onError>continue</onError>
+            </configuration>
+          </execution>
+					<!-- It creates integration test data before running the tests -->
+					<execution>
+						<id>create-integration-test-data</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<orderFile>ascending</orderFile>
+							<fileset>
+								<basedir>${project.parent.basedir}/src/test/resources</basedir>
+								<includes>
+									<include>banking_test.sql</include>
+								</includes>
+							</fileset>
+							<onError>abort</onError>
+						</configuration>
+					</execution>
+				</executions>
+
+			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											sql-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.5,)
+										</versionRange>
+										<goals>
+											<goal>execute</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

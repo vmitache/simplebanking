@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import curs.banking.business.AccountService;
 import curs.banking.business.TransactionService;
-import curs.banking.model.Account;
-import curs.banking.model.Transaction;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.TransactionPair;
 
 /**
@@ -35,7 +33,7 @@ public class ShowTransactionListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TransactionService transactionService = new TransactionService();
+		TransactionService transactionService = new TransactionService(DataSourceConnectionFactory.factory());
 		try {
 			Collection<TransactionPair> tl = transactionService.loadAllTransactionPairs();
 			request.setAttribute("transactions", tl);

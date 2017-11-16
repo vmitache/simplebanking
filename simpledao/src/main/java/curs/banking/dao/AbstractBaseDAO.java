@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import curs.banking.model.Account;
-import curs.banking.model.Customer;
-
 public abstract class AbstractBaseDAO<T> implements BasicDAO<T> {
   protected Connection mConnection;
   

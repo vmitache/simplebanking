@@ -32,6 +32,28 @@ create table bank.transaction(ID IDENTITY PRIMARY KEY,
    ttype char NOT NULL,
    amount numeric(10,2) NOT NULL,
    ttime TIMESTAMP);
+   
+CREATE TABLE bank.users (
+	user_name varchar(20) NOT NULL PRIMARY KEY,
+	password varchar(32) NOT NULL
+);
+CREATE TABLE bank.roles (
+	role_name varchar(20) NOT NULL PRIMARY KEY
+);
+CREATE TABLE bank.users_roles (
+	user_name varchar(20) NOT NULL,
+	role_name varchar(20) NOT NULL,
+	PRIMARY KEY (user_name, role_name),
+	CONSTRAINT users_roles_foreign_key_1 FOREIGN KEY (user_name) REFERENCES bank.users (user_name),
+	CONSTRAINT users_roles_foreign_key_2 FOREIGN KEY (role_name) REFERENCES bank.roles (role_name)
+);
+INSERT INTO bank.users (user_name, password) VALUES ('pufi', 'fifi1');
+INSERT INTO bank.users (user_name, password) VALUES ('gigi', 'gigi1');
+INSERT INTO bank.roles (role_name) VALUES ('bankmanager');
+INSERT INTO bank.roles (role_name) VALUES ('bankclerk');
+INSERT INTO bank.users_roles (user_name, role_name) VALUES ('pufi', 'bankmanager');
+INSERT INTO bank.users_roles (user_name, role_name) VALUES ('pufi', 'bankclerk');
+INSERT INTO bank.users_roles (user_name, role_name) VALUES ('gigi', 'bankclerk');
       
 INSERT INTO bank.currency(name) values('RON'); // id==1
 INSERT INTO bank.currency(name) values('EUR'); // id==2

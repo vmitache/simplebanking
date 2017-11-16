@@ -1,3 +1,4 @@
+<%@page import="curs.banking.db.utils.DataSourceConnectionFactory"%>
 <%@page import="java.util.Collection"%>
 <%@page import="curs.banking.model.Account"%>
 <%@page import="curs.banking.business.AccountService"%>
@@ -15,7 +16,7 @@
 	Date platitor:<br>
 	<%
 	   String saccid = request.getParameter("accountId");
-	   AccountService as = new AccountService();
+	   AccountService as = new AccountService(DataSourceConnectionFactory.factory());
 	   Account acc = as.loadAccountById(Long.parseLong(saccid));
 	   Collection<Account> accList = as.loadPossibleAccountsForPaymentFrom(acc);
 	 %>

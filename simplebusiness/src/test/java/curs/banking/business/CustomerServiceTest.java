@@ -1,19 +1,13 @@
 package curs.banking.business;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import curs.banking.dao.CityDAO;
-import curs.banking.dao.DAOException;
+import curs.banking.db.utils.ConnectionFactory;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Address;
 import curs.banking.model.City;
 import curs.banking.model.Customer;
@@ -25,6 +19,7 @@ public class CustomerServiceTest {
  @Before
   public void setUp() throws Exception {
     Connection mConn = DriverManager.getConnection(DB_URL, "SA", "");
+    /**
     Statement st = mConn.createStatement();
     StringBuilder sb = new StringBuilder();
     try {
@@ -38,6 +33,7 @@ public class CustomerServiceTest {
     } catch (Throwable th) {
       th.printStackTrace();
     }
+    */
   }
 
   @Test
@@ -64,7 +60,7 @@ public class CustomerServiceTest {
 
   @Test
   public void testCreateCustomer() throws Exception {
-    CustomerService cs = new CustomerService();
+    CustomerService cs = new CustomerService(ConnectionFactory.factory());
     Connection c = ConnectionFactory.factory().getConnection();
     City city = new CityDAO(c).findById(1);
     c.close();

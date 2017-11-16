@@ -5,13 +5,14 @@ import java.util.Collection;
 
 import curs.banking.dao.AccountDAO;
 import curs.banking.dao.SQLUtils;
+import curs.banking.db.utils.IConnectionFactory;
 import curs.banking.model.Account;
 
 public class AccountService {
-  private ConnectionFactory mConnFactory;
+  private IConnectionFactory mConnFactory;
 
-  public AccountService() {
-    mConnFactory = ConnectionFactory.factory();
+  public AccountService(IConnectionFactory pFactory) {
+    mConnFactory = pFactory;
   }
 
   public Collection<Account> loadAllAccounts() throws Exception {

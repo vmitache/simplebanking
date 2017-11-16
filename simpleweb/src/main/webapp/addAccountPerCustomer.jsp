@@ -1,3 +1,4 @@
+<%@page import="curs.banking.db.utils.DataSourceConnectionFactory"%>
 <%@page import="curs.banking.model.Currency"%>
 <%@page import="curs.banking.model.AccountType"%>
 <%@page import="curs.banking.business.AccountService"%>
@@ -17,7 +18,7 @@
 	<h1>Adauga cont</h1>
 	<%
 		String scid = request.getParameter("custId");
-		Customer cust = new CustomerService().loadCustomerById(Long.parseLong(scid));
+		Customer cust = new CustomerService(DataSourceConnectionFactory.factory()).loadCustomerById(Long.parseLong(scid));
 	%>
 	<h2>Client</h2>
 	<br>
@@ -34,7 +35,7 @@
 			<TH>VALUTA</TH>
 		</TR>
 		<%
-			Collection<Account> accounts = new AccountService().loadAccountsPerCustomerId(Long.parseLong(scid));
+			Collection<Account> accounts = new AccountService(DataSourceConnectionFactory.factory()).loadAccountsPerCustomerId(Long.parseLong(scid));
 			for (Account acc : accounts) {
 		%>
 		<tr>

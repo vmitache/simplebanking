@@ -5,12 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import curs.banking.model.Address;
-import curs.banking.model.City;
 
 public class AddressDAO extends AbstractBaseDAO<Address> {
   private CityDAO mCityDAO;

@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import curs.banking.business.AccountService;
-import curs.banking.business.CustomerService;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Account;
-import curs.banking.model.Customer;
 
 /**
  * Servlet implementation class ShowAccountListServlet
@@ -40,7 +39,7 @@ public class ShowAccountListServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		AccountService accService = new AccountService();
+		AccountService accService = new AccountService(DataSourceConnectionFactory.factory());
 		try {
 			Collection<Account> al = accService.loadAllAccounts();
 			request.setAttribute("accounts", al);

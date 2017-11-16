@@ -10,16 +10,17 @@ import curs.banking.dao.AccountDAO;
 import curs.banking.dao.DAOException;
 import curs.banking.dao.SQLUtils;
 import curs.banking.dao.TransactionDAO;
+import curs.banking.db.utils.IConnectionFactory;
 import curs.banking.model.Account;
 import curs.banking.model.Transaction;
 import curs.banking.model.TransactionPair;
 import curs.banking.model.TransactionType;
 
 public class TransactionService {
-  private ConnectionFactory mConnFactory;
+  private IConnectionFactory mConnFactory;
 
-  public TransactionService() {
-    mConnFactory = ConnectionFactory.factory();
+  public TransactionService(IConnectionFactory pFactory) {
+    mConnFactory = pFactory;
   }
 
   public Collection<Transaction> loadAllTransactions() throws Exception {

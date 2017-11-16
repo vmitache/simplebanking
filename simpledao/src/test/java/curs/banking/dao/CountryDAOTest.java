@@ -2,15 +2,8 @@ package curs.banking.dao;
 
 import org.junit.Assert;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collection;
 
 import org.junit.Before;
@@ -28,6 +21,7 @@ public class CountryDAOTest {
   @Before
   public void setUp() throws Exception {
     mConn = DriverManager.getConnection(DB_URL, "SA", "");
+    /**
     Statement st = mConn.createStatement();
     StringBuilder sb = new StringBuilder();
     try {
@@ -40,6 +34,7 @@ public class CountryDAOTest {
     } catch (Throwable th) {
       th.printStackTrace();
     }
+    */
   }
 
   @Test

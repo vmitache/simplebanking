@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import curs.banking.business.TransactionService;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 
 /**
  * Servlet implementation class TransactionAddServlet
@@ -33,7 +34,7 @@ public class TransactionAddServlet extends HttpServlet {
 		String samount = request.getParameter("amount");
 		String saccpl = request.getParameter("accPlatitor");
 		String saccbn = request.getParameter("accBeneficiar");
-		TransactionService ts = new TransactionService();
+		TransactionService ts = new TransactionService(DataSourceConnectionFactory.factory());
 		try {
 			if(ts.transferMoney(Long.parseLong(saccbn),Long.parseLong(saccpl), Double.parseDouble(samount))) {
 				response.sendRedirect("show/all");

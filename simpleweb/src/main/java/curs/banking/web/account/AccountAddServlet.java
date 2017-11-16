@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import curs.banking.business.AccountService;
 import curs.banking.business.CustomerService;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Account;
 import curs.banking.model.AccountType;
 import curs.banking.model.Currency;
@@ -46,13 +47,13 @@ public class AccountAddServlet extends HttpServlet {
 		Account account = new Account();
 		account.setAccountType(at);
 		account.setAmount(sold);
-		CustomerService cs = new CustomerService();
+		CustomerService cs = new CustomerService(DataSourceConnectionFactory.factory());
 		try {
 			account.setBank(cs.getBank());
 			account.setCurrency(cc);
 			account.setIBAN(iban);
 			account.setCustomer(cs.loadCustomerById(custId));
-			Account newAccount = new AccountService().createAccount(account);
+			Account newAccount = new AccountService(DataSourceConnectionFactory.factory()).createAccount(account);
 			request.setAttribute("account", newAccount);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/showAccount.jsp");
 			rd.forward(request, response);

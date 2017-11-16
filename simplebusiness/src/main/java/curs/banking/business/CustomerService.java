@@ -1,29 +1,20 @@
 package curs.banking.business;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
-
-import curs.banking.dao.AccountDAO;
 import curs.banking.dao.AddressDAO;
 import curs.banking.dao.BankDAO;
 import curs.banking.dao.CustomerDAO;
-import curs.banking.dao.DAOException;
 import curs.banking.dao.SQLUtils;
-import curs.banking.dao.TransactionDAO;
-import curs.banking.model.Account;
+import curs.banking.db.utils.IConnectionFactory;
 import curs.banking.model.Bank;
 import curs.banking.model.Customer;
-import curs.banking.model.Transaction;
-import curs.banking.model.TransactionType;
 
 public class CustomerService {
-  private ConnectionFactory mConnFactory;
+  private IConnectionFactory mConnFactory;
 
-  public CustomerService() {
-    mConnFactory = ConnectionFactory.factory();
+  public CustomerService(IConnectionFactory pFactory) {
+    mConnFactory = pFactory;
   }
   
 

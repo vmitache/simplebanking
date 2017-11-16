@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import curs.banking.business.AddressService;
 import curs.banking.business.CustomerService;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Address;
 import curs.banking.model.City;
 import curs.banking.model.Customer;
@@ -51,8 +52,8 @@ public class CustomerAddServlet extends HttpServlet {
 		addr.setNumber(request.getParameter("numar"));
 		addr.setStreet(request.getParameter("strada"));
 		addr.setPostalCode(request.getParameter("cp"));
-		AddressService as = new AddressService();
-		CustomerService cs = new CustomerService();
+		AddressService as = new AddressService(DataSourceConnectionFactory.factory());
+		CustomerService cs = new CustomerService(DataSourceConnectionFactory.factory());
 		System.out.println("City is:" + request.getParameter("city"));
 		if(request.getParameter("city") == null) {
 			// ???? MA INTORC IN PAGINA CU EROARE

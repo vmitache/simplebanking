@@ -1,7 +1,5 @@
 package curs.banking.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collection;
 
 public interface BasicDAO<T> {

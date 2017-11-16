@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import curs.banking.model.Bank;
-import curs.banking.model.City;
 import curs.banking.model.Customer;
 import curs.banking.model.SexEnum;
 

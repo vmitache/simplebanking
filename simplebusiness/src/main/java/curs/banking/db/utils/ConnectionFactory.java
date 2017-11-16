@@ -1,15 +1,16 @@
-package curs.banking.business;
+package curs.banking.db.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionFactory {
+public class ConnectionFactory implements IConnectionFactory {
   static final String DB_URL = "jdbc:h2:~/test;AUTO_SERVER=TRUE";
 
   private ConnectionFactory() {
 
   }
 
+  @Override
   public Connection getConnection() throws Exception {
     Class.forName("org.h2.Driver");
     return DriverManager.getConnection(DB_URL, "SA", "");

@@ -1,7 +1,6 @@
 package curs.banking.web.customer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import curs.banking.business.CustomerService;
+import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Customer;
 
 /**
@@ -35,7 +35,7 @@ public class ShowCustomerListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CustomerService custService = new CustomerService();
+		CustomerService custService = new CustomerService(DataSourceConnectionFactory.factory());
 		try {
 			Collection<Customer> cl = custService.loadAllCustomers();
 			String contentType = request.getHeader("Accept");

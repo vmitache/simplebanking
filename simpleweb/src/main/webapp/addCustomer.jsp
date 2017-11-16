@@ -1,3 +1,4 @@
+<%@page import="curs.banking.db.utils.DataSourceConnectionFactory"%>
 <%@page import="curs.banking.business.AddressService"%>
 <%@page import="curs.banking.business.CustomerService"%>
 <%@page import="curs.banking.model.City"%>
@@ -33,7 +34,7 @@
     Oras: 
     <select name="city">
       <%
-        Collection<City> cities = new AddressService().loadCities();
+        Collection<City> cities = new AddressService(DataSourceConnectionFactory.factory()).loadCities();
         for(City city:cities) {
       %>
             <option value="<%= city.getId() %>"><%= city.getName() %></option>

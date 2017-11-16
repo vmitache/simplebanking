@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import curs.banking.dao.CityDAO;
+import curs.banking.db.utils.IConnectionFactory;
 import curs.banking.model.City;
 
 public class AddressService {
-  private ConnectionFactory mConnFactory;
+  private IConnectionFactory mConnFactory;
 
-  public AddressService() {
-    mConnFactory = ConnectionFactory.factory();
+  public AddressService(IConnectionFactory pFactory) {
+    mConnFactory = pFactory;
   }
   
   public City loadCityById(long pId) throws SQLException, Exception {
