@@ -36,14 +36,17 @@ public class ShowAccountListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (!request.isUserInRole("bankmanager")) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
 		AccountService accService = new AccountService();
 		try {
 			Collection<Account> al = accService.loadAllAccounts();
 			request.setAttribute("accounts", al);
 
-			
 			String jspName = "/listAccounts.jsp";
-			
+
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspName);
 			// !!!!
 			dispatcher.forward(request, response);
