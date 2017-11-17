@@ -2,11 +2,13 @@ package curs.banking.db.utils;
 
 import java.sql.Connection;
 
+import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class DataSourceConnectionFactory implements IConnectionFactory {
+  //@Resource(lookup="java:/comp/env/jdbc/BankDB")
   private DataSource mDataSource;
 
   private DataSourceConnectionFactory() {

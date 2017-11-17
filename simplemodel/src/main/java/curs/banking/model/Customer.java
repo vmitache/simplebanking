@@ -21,6 +21,7 @@ public class Customer {
     mId = pId;
   }
 
+  @JsonProperty("ala_de_la_botez")
   public String getName() {
     return mName;
   }

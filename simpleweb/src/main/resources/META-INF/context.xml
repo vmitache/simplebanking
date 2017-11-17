@@ -5,5 +5,6 @@
 		
 	<Realm className="org.apache.catalina.realm.DataSourceRealm"
 		dataSourceName="jdbc/BankDB" userTable="bank.users" userNameCol="user_name"
-		userCredCol="password" userRoleTable="bank.users_roles" roleNameCol="role_name" />
+		userCredCol="password" userRoleTable="bank.users_roles" roleNameCol="role_name"
+		localDataSource="true" />
 </Context>

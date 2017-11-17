@@ -7,6 +7,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>simpledao</artifactId>
+		<packaging>jar</packaging>
+	
 	<dependencies>
 		<dependency>
 			<groupId>curs.banking</groupId>

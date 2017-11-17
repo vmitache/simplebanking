@@ -14,6 +14,7 @@ public class RestApplication extends Application {
     public Set<Class<?>> getClasses() {
 		Set<Class<?>> clzz = new HashSet<>();
 		clzz.add(CustomerResource.class);
+		// ADD OTHER RESOURCES
     	return clzz;
     }
 }
