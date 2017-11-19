@@ -6,7 +6,9 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import curs.banking.rest.account.AccountResource;
 import curs.banking.rest.customer.CustomerResource;
+import curs.banking.rest.transaction.TransactionResource;
 
 @ApplicationPath("/rest1")
 public class RestApplication extends Application {
@@ -15,6 +17,9 @@ public class RestApplication extends Application {
 		Set<Class<?>> clzz = new HashSet<>();
 		clzz.add(CustomerResource.class);
 		// ADD OTHER RESOURCES
+		clzz.add(AccountResource.class);
+		clzz.add(TransactionResource.class);
+
     	return clzz;
     }
 }
