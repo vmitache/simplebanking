@@ -1,19 +1,15 @@
 package curs.banking.rest.customer;
 
 import java.util.Collection;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 
 import curs.banking.business.CustomerService;
 import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Customer;
+import curs.banking.rest.CustomerResourceIntf;
 
-@Path("/customers")
-public class CustomerResource {
-	@GET
-	@Produces("application/json")
-   public Collection<Customer> getCustomers() throws Exception {
-	   return new CustomerService(DataSourceConnectionFactory.factory()).loadAllCustomers();
-   }
+public class CustomerResource implements CustomerResourceIntf {
+	@Override
+	public Collection<Customer> getCustomers() throws Exception {
+		return new CustomerService(DataSourceConnectionFactory.factory()).loadAllCustomers();
+	}
 }
