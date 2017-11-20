@@ -3,6 +3,11 @@ package curs.banking;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -31,12 +36,12 @@ public class Main {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		
-		}); 
+
+		});
 		panel.add(btn);
 		return panel;
 	}
-	
+
 	private static void createAndShowGUI() {
 		// Create and set up the window.
 		JFrame frame = new JFrame("Banking");
@@ -46,25 +51,36 @@ public class Main {
 		// Add content to the window.
 		JPanel mainPanel = new JPanel(new GridLayout(1, 1));
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("Clienti",createCustomersTab() );
+		tabbedPane.add("Clienti", createCustomersTab());
 		mainPanel.add(tabbedPane);
 		frame.add(mainPanel, BorderLayout.CENTER);
-
+		///
+		///ADD Panel accounts
 		// Display the window.
 		frame.pack();
 		frame.setVisible(true);
 	}
 
 	public static void main(String[] args) throws Exception {
-		//CustomerResourceIntf cr = ProxyUtils.getRestClient(CustomerResourceIntf.class);
-		//System.out.println(cr.getCustomers());
+		// CustomerResourceIntf cr =
+		// ProxyUtils.getRestClient(CustomerResourceIntf.class);
+		// System.out.println(cr.getCustomers());
 		// Schedule a job for the event dispatch thread:
 		// creating and showing this application's GUI.
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
 			}
 		});
+		/**
+		 * URL url = new URL("http://localhost:8080/banking/rest/customers");
+		 * URLConnection conn = url.openConnection(); BufferedReader in = new
+		 * BufferedReader(new InputStreamReader(conn.getInputStream())); String
+		 * inputLine; while ((inputLine = in.readLine()) != null)
+		 * System.out.println(inputLine); in.close();
+		 */
+
 	}
 
 }

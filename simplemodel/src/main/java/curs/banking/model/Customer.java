@@ -21,7 +21,7 @@ public class Customer {
     mId = pId;
   }
 
-  @JsonProperty("ala_de_la_botez")
+  //@JsonProperty("nume")
   public String getName() {
     return mName;
   }
@@ -30,7 +30,7 @@ public class Customer {
     mName = pName;
   }
 
-  @JsonProperty("cnp")
+  //@JsonProperty("cnp")
   public String getSSN() {
     return mSSN;
   }

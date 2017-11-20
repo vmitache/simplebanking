@@ -9,7 +9,8 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 public class ProxyUtils {
 	public static <T> T getRestClient(Class<T> pInterface) {
 		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(UriBuilder.fromPath(Constants.BASE_URL));
+		ResteasyWebTarget target = client.target(
+				UriBuilder.fromPath(Constants.BASE_URL));
 		return target.proxy(pInterface);
 	}
 

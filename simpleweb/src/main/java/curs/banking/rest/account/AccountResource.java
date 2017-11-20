@@ -12,4 +12,6 @@ public class AccountResource implements AccountResourceIntf {
 	public Collection<Account> getAccounts() throws Exception {
 		return new AccountService(DataSourceConnectionFactory.factory()).loadAllAccounts();
 	}
+	
+	// GET ACCOUNT BY ID
 }

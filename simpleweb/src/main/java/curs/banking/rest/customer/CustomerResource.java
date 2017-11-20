@@ -12,4 +12,15 @@ public class CustomerResource implements CustomerResourceIntf {
 	public Collection<Customer> getCustomers() throws Exception {
 		return new CustomerService(DataSourceConnectionFactory.factory()).loadAllCustomers();
 	}
+
+	@Override
+	public Customer getCustomer(long pId) throws Exception {
+		return new CustomerService(DataSourceConnectionFactory.factory()).loadCustomerById(pId);
+	}
+
+	@Override
+	public Customer createCustomer(Customer pCustomer) throws Exception {
+		CustomerService cs = new CustomerService(DataSourceConnectionFactory.factory());
+		return cs.createCustomer(pCustomer);
+	}
 }

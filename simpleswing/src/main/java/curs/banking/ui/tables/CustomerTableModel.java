@@ -36,6 +36,11 @@ public class CustomerTableModel extends AbstractTableModel {
 	public int getColumnCount() {
 		return mColNames.length;
 	}
+	
+	@Override
+	public String getColumnName(int column) {
+		return mColNames[column];
+	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
