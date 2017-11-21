@@ -1,5 +1,8 @@
 package curs.banking.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Account {
   private long mId;
   private String mIBAN;

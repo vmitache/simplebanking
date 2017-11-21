@@ -24,7 +24,7 @@ public interface CustomerResourceIntf {
 	
 	@POST
 	@Produces("application/json")
-	@Consumes("application/json")
+	@Consumes({"application/json","text/xml"})
 	public Customer createCustomer(Customer pCustomer) throws Exception;
 	
 }
