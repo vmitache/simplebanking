@@ -3,6 +3,7 @@ package curs.banking.web.transaction;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,9 @@ import curs.banking.model.TransactionPair;
 public class ShowTransactionListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@Inject
+	private TransactionService mTransactionService;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,9 +37,8 @@ public class ShowTransactionListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TransactionService transactionService = new TransactionService(DataSourceConnectionFactory.factory());
 		try {
-			Collection<TransactionPair> tl = transactionService.loadAllTransactionPairs();
+			Collection<TransactionPair> tl = mTransactionService.loadAllTransactionPairs();
 			request.setAttribute("transactions", tl);
 
 			

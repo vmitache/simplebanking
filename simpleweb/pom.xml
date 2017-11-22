@@ -30,7 +30,7 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>3.1.4.Final</version>
 		</dependency>
-		<!--  For JSON mapping -->
+		<!-- For JSON mapping -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jackson2-provider</artifactId>
@@ -48,10 +48,16 @@
 			<version>3.1.4.Final</version>
 		</dependency>
 		<dependency>
-    <groupId>org.jboss.weld.servlet</groupId>
-    <artifactId>weld-servlet</artifactId>
-    <version>2.4.5.Final</version>
-</dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.4.5.Final</version>
+		</dependency>
+		<!-- CDI RestEasy Integration -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-cdi</artifactId>
+			<version>3.1.4.Final</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>banking</finalName>

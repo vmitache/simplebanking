@@ -2,11 +2,11 @@ package curs.banking.di;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.inject.Default;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
-@Default
+@Dependent
 public class LoggerProducer {
 	@Produces
 	public Logger produceLogger(InjectionPoint injectionPoint) {

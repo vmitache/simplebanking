@@ -1,6 +1,8 @@
 package curs.banking.web.customer;
 
 import java.io.IOException;
+
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +24,12 @@ import curs.banking.model.SexEnum;
 public class CustomerAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@Inject
+	private CustomerService mCustomerService;
+	@Inject
+	private AddressService mAddressService;
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,8 +60,6 @@ public class CustomerAddServlet extends HttpServlet {
 		addr.setNumber(request.getParameter("numar"));
 		addr.setStreet(request.getParameter("strada"));
 		addr.setPostalCode(request.getParameter("cp"));
-		AddressService as = new AddressService(DataSourceConnectionFactory.factory());
-		CustomerService cs = new CustomerService(DataSourceConnectionFactory.factory());
 		System.out.println("City is:" + request.getParameter("city"));
 		if(request.getParameter("city") == null) {
 			// ???? MA INTORC IN PAGINA CU EROARE
@@ -65,10 +71,10 @@ public class CustomerAddServlet extends HttpServlet {
 			// ???? MA INTORC IN PAGINA CU EROARE
 		}
 		try {
-			City c = as.loadCityById(Long.parseLong(request.getParameter("city")));
+			City c = mAddressService.loadCityById(Long.parseLong(request.getParameter("city")));
 			addr.setCity(c);
 			cust.setAddress(addr);
-			cs.createCustomer(cust);
+			mCustomerService.createCustomer(cust);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

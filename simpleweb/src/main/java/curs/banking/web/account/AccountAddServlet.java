@@ -2,6 +2,7 @@ package curs.banking.web.account;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,11 @@ import curs.banking.model.Currency;
 @WebServlet("/accounts/add")
 public class AccountAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	CustomerService mCustomerService;
+	@Inject 
+	AccountService mAccountService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,13 +53,12 @@ public class AccountAddServlet extends HttpServlet {
 		Account account = new Account();
 		account.setAccountType(at);
 		account.setAmount(sold);
-		CustomerService cs = new CustomerService(DataSourceConnectionFactory.factory());
 		try {
-			account.setBank(cs.getBank());
+			account.setBank(mCustomerService.getBank());
 			account.setCurrency(cc);
 			account.setIBAN(iban);
-			account.setCustomer(cs.loadCustomerById(custId));
-			Account newAccount = new AccountService(DataSourceConnectionFactory.factory()).createAccount(account);
+			account.setCustomer(mCustomerService.loadCustomerById(custId));
+			Account newAccount = mAccountService.createAccount(account);
 			request.setAttribute("account", newAccount);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/showAccount.jsp");
 			rd.forward(request, response);

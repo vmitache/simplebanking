@@ -3,6 +3,7 @@ package curs.banking.web.transaction;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,9 @@ import curs.banking.db.utils.DataSourceConnectionFactory;
 public class TransactionAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@Inject
+	private TransactionService mTransactionService;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,9 +38,8 @@ public class TransactionAddServlet extends HttpServlet {
 		String samount = request.getParameter("amount");
 		String saccpl = request.getParameter("accPlatitor");
 		String saccbn = request.getParameter("accBeneficiar");
-		TransactionService ts = new TransactionService(DataSourceConnectionFactory.factory());
 		try {
-			if(ts.transferMoney(Long.parseLong(saccbn),Long.parseLong(saccpl), Double.parseDouble(samount))) {
+			if(mTransactionService.transferMoney(Long.parseLong(saccbn),Long.parseLong(saccpl), Double.parseDouble(samount))) {
 				response.sendRedirect("show/all");
 			} else {
 				response.getWriter().println("<html><body>Tranzactie eronata<BR>");

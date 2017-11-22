@@ -2,15 +2,20 @@ package curs.banking.db.utils;
 
 import java.sql.Connection;
 
-import javax.annotation.Resource;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+//import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+@ApplicationScoped
 public class DataSourceConnectionFactory implements IConnectionFactory {
   //@Resource(lookup="java:/comp/env/jdbc/BankDB")
+  @Inject
   private DataSource mDataSource;
 
+  /**
   private DataSourceConnectionFactory() {
     InitialContext cxt;
     try {
@@ -23,12 +28,14 @@ public class DataSourceConnectionFactory implements IConnectionFactory {
       throw new RuntimeException(e);
     }
   }
+  */
 
   @Override
   public Connection getConnection() throws Exception {
     return mDataSource.getConnection();
   }
 
+  /**
   private static DataSourceConnectionFactory __INSTANCE = null;
 
   public static DataSourceConnectionFactory factory() {
@@ -41,4 +48,5 @@ public class DataSourceConnectionFactory implements IConnectionFactory {
     }
     return __INSTANCE;
   }
+  */
 }

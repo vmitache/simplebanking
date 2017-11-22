@@ -3,6 +3,7 @@ package curs.banking.web.customer;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,9 @@ import curs.banking.model.Customer;
 public class ShowCustomerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private CustomerService mCustomerService;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,9 +39,8 @@ public class ShowCustomerListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CustomerService custService = new CustomerService(DataSourceConnectionFactory.factory());
 		try {
-			Collection<Customer> cl = custService.loadAllCustomers();
+			Collection<Customer> cl = mCustomerService.loadAllCustomers();
 			String contentType = request.getHeader("Accept");
 			String jspName = null;
 			if("application/json".equals(contentType)) {

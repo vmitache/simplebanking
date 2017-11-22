@@ -3,6 +3,7 @@ package curs.banking.web.account;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,9 @@ import curs.banking.model.Account;
 public class ShowAccountListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private AccountService mAccountService;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,9 +43,8 @@ public class ShowAccountListServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		AccountService accService = new AccountService(DataSourceConnectionFactory.factory());
 		try {
-			Collection<Account> al = accService.loadAllAccounts();
+			Collection<Account> al = mAccountService.loadAllAccounts();
 			request.setAttribute("accounts", al);
 
 			String jspName = "/listAccounts.jsp";
