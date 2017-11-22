@@ -20,6 +20,18 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -64,18 +76,18 @@
 
 				<executions>
 					<execution>
-            <id>drop-schema-before-test-if-any</id>
-            <phase>process-test-resources</phase>
-            <goals>
-              <goal>execute</goal>
-            </goals>
-            <configuration>
-              <autocommit>true</autocommit>
-              <sqlCommand>drop schema bank if exists</sqlCommand>
-              <!-- ignore error when database is not available -->
-              <onError>continue</onError>
-            </configuration>
-          </execution>
+						<id>drop-schema-before-test-if-any</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<autocommit>true</autocommit>
+							<sqlCommand>drop schema bank if exists</sqlCommand>
+							<!-- ignore error when database is not available -->
+							<onError>continue</onError>
+						</configuration>
+					</execution>
 					<!-- It creates integration test data before running the tests -->
 					<execution>
 						<id>create-integration-test-data</id>
@@ -101,7 +113,8 @@
 
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

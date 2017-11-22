@@ -2,9 +2,13 @@
 	<Resource name="jdbc/BankDB" auth="Container" type="javax.sql.DataSource"
 		maxTotal="100" maxIdle="2" maxWaitMillis="10000" username="SA"
 		password="" driverClassName="org.h2.Driver" url="jdbc:h2:~/test;AUTO_SERVER=TRUE" />
-		
+
 	<Realm className="org.apache.catalina.realm.DataSourceRealm"
 		dataSourceName="jdbc/BankDB" userTable="bank.users" userNameCol="user_name"
 		userCredCol="password" userRoleTable="bank.users_roles" roleNameCol="role_name"
 		localDataSource="true" />
+
+	<Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" 
+		factory="org.jboss.weld.resources.ManagerObjectFactory" />
 </Context>
