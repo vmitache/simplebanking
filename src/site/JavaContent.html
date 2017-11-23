@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Java Content</title>
+</head>
+<body>
+	<h1>Reminders</h1>
+	<hr>
+	<div>
+	  <b>Java esentials</b>
+	    <li>Java classes
+	    <li>Java interfaces
+	    <li>Inheritance, polymorfism
+	    <li>Visibility (private, protected ,etc)
+	      - encapsulation
+	    <li>Keywords
+	   <br>
+	   <b>java collection</b>
+	     <li>List
+	     <li>Set
+	     <li>Map
+	     <li>Iterators - for each
+	   <br>
+	   <b>Threading</b>
+	   <li>Thread, synchronized, wait, notify
+	   <li>Deadlock
+	   <li>Thread safety (processor cache)
+	   <li>volatile - processor cache
+	   <li>Immutable classes - String,Integer,Long,etc ..
+	   <li>Generics - Collections - List<T>,Map<K,V> - elimin CAST
+	   <li>java.util.concurrency package
+	   <ol>
+	   <li>- Lock (ReeentrantLock, ReadWriteLock) - try finnaly
+		<li> Semaphore, CountDownLatch
+	   <li>- Executor (ThreadPool),Executors - eficienta folosirii threadurilor
+	    <ul>
+	      <li>Runnable
+	      <li>Callable -> Futures
+	    </ul>
+	   </ol>
+	   <br>
+	   <b>Streams</b>
+	   <li>Lambda expression
+	   <li>Functional interface - Predicate,Consumer
+	   <li>Stream processing
+	     <ul>
+	       <li>filter - s.filter(predicate) / s.filter((e) -> true/false)
+	       <li>map - s.map(map funct) / s.map((e) -> g) => stream (g)
+	     </ul>
+	    <b>Arrays,Collections,Streams</b>
+	    <ul>
+	      <li>Filters
+	      <li>Map
+	      <li>Collectors - forEach,toCollection,
+	        reduce
+	        <li> parallelStream
+	    </ul>
+	    <br>
+	    <b>IO</b>
+	    <li>Files - File/ (nio) Path, Files - verify existence, create,delete
+	    <li>InputStream/OutputStream - byte/byte array - TRY FINNALY
+	    <li>Reader/Writer - io pe chars (byte to char encoding - UTF8)
+	    <li>FileInputStream/FileOutputStream (file IO)
+	    <li>FileReader,FileWriter
+	    <li>InputStreamReader,OutputStreamWriter
+	    <li>BufferedInputStream/BufferedOutputStream (flush)
+	    <li>BufferedReader/BufferedWriter - readLine -> String
+	    <li>DataInputStream/DataOuputStream - read write int,long,short,double,etc
+	    <li>ObjectInputStream/ObjectOutputStream - Serializable!!!/Externalizable
+	    <li>NIO - ByteChannels - ReadableByteChannel,WriteableByteChannel
+	    <li>Networking - ServerSocket,Socket - server/client side of the TCP/IP connection
+	      <ul>>
+	        <li>Once we have an opened socket we can use getInputStream/getOutputStream on it
+	      </ul>
+	  <br>
+	  <b>Design Patterns</b>
+	  <i>Template de gandire si implementare</i>
+	  <li>Factory pattern - static methods (private constructors)
+	  <ul>
+	    <li>DI acopera si factory si singleton pattern
+	    <li>Exemplu - Integer.valueOf(String)-- CACHING/new Integer(String) - e NON CACHING
+	  </ul>
+	  <li>Singleton 
+	  <li>DAO - Fiecare Obiect persistent are o clasa ajutatoare 
+	  <li>Proxy - DI
+	  <li>Decorator - DI
+	  <li>GOF (Gang of four) -lista de patterns
+	  <br>
+	  <b>SQL / JDBC/ Baze relationale</b>
+	  <li>SQL == LIMBAJ GENERAL DE OPERARE PE BAZE RELATIONALE
+	    <ul>
+	      <li>UPDATE
+	      <li>INSERT
+	      <li>DELETE
+	      <li>SELECT - JOINS, WHERE
+	    </ul>
+	  <li>BAZA RELATIONALA - MODELARE BAZATA PE TABELE (RELATII)
+	  <ul>
+	    <li>TRANZACTIONS - ACID 
+	    <li>ATOMICITY + DURABILITY == Totul sau nimic
+	    <li>CONSISTENCY + ISOLATION - ISOLATION LEVELS - READ UNCOMMITED, READ COMMITED,SERIALIZABLE
+	    <li>Short transactions
+	  </ul>
+	  <li><B>JDBC -Java API Standard for SQL</B>
+	    <ul>
+	      <li>JDBC URL - jdbc:<dn>://urlbazadate - este recunoscut de driverul JDBC
+	      <li>DriverManager - getConnection
+	      <li>Connection - TRY FINALLY 
+	        <ol>
+	          <li>Use with try .. finally or try() .. (with resources/Java 7+)
+	          <li> IS NOT THREAD SAFE !!!
+	          <li> DataSource - Connection Pool - maxConnSize,maxIdleConnSize, ..
+	             <ul>
+	               <li>Se configureaza la nivel de container WEB/JEE - Tomcat,JBoss,Jetty
+	               <li>Se obtine prin JNDI/DI
+	                  - InitialContext.lookup , @Resource, @Inject
+	             </ul>
+	        </ol>
+	        <li>Statement,PreparedStatement - created by Connection/ executeQuery ->ResultSet ,executeUpdate -> int,execute
+	        <li>ResultSet - next() -> boolean (while (rs.next()) { ... rs.getString(1..)/..})
+	        <li> ResultSet,Statement,PreparedStatement - finally { rs.close(),stmt.clse() ..}
+	        <li> Putem cupla mai multe Statements in o singura tranzactie
+	           <ol>
+	             <li>conn.setAutocommit(false);
+	             <li>s = conn.prepareStatement();
+	             <li>s.execute...
+	             <li>conn.commit()/ conn.rollback() // eventual in finally
+	           </ol>
+	    </ul>
+	    <br>
+	    <b>Exceptions</b>
+	    <li>Checked exceptions - in semnatura si trebe interceptate cu catch daca nu te propag mai departe
+	    <li>Unchecked exceptions - nu e necesar sa apara in semnatura metodelor
+	    <li>Unchecked exceptions - extends Error, RuntimeException
+	    <li>Checked exception - extends Exception
+	    <li>Constructor (String pMsg),(String pMsg,Throwable pCause)
+	    <li>Cuvinte cheie - throws - in semnatura metodei/ throw - arunca o exception, try, catch, finally
+	    <li>Superclasa la TOATE tipurile de exceptii - Throwable
+	    <li>O exceptie netratata/necapturata - omoara Thread-ul
+	    <li> pot avea multiple catch statements
+	      <code>
+	        try {
+	        } catch(E1 e1) {
+	        } catch(E2 e2) {
+	        ...
+	        } finally {
+	        }
+	        
+	      </code>
+	      E1 NU trebe sa fie o superclasa a lui E2/ exceptiile se pun in catch de la cea mai specifica la cea mai generala
+	    <br>
+	    <B>HTTP - hyper text transfer protocol</B>
+	    <li>E protocolul WEB
+	    <li>Model <b>Request</b>/<b>Response</b> bazat pe Sockets
+	    <li>Request attributes - <i>URL</i>,
+	    <i>METHOD - GET,POST,PUT,DELETE,HEAD,TRACE,OPTIONS</i>,
+	    <i>Headers : Accept:text/html...,Content-Type:application/json...,Accept-Language:ro</i>,
+	    <i>query parameters - fie in URL http:.../..?p1=v1&p2=v2 fie in body-ul request</i>
+	    <li>Response attributes - <i>Status - 2xx - OK,3xx - temp condition,4xx - App error,5xx - Server error</i>,
+					<i>Headers : Content-Type:text/html...,Content-Encoding:xx,Content-Length:1355</i>,
+					<i>Response body</i>
+			<li>Cookies ... tot headers cu 'puteri' speciale - au 'expiration' time - in secunde, -1 == pana cand se inchide browserul
+			  <ul>
+			    <li>Ajuta serverul sa urmareasca clientii
+			    <li>JSESSION_ID cookie - generat de Tomcat/Jetty/JBoss etc pentru Session tracking
+			    
+			  </ul>
+				<br>
+				<B>WEB API</B>	
+				<li>Modeleaza in Java protocolul HTTP
+				<li>HttServlet - doGet,doPost,doPut samd .. (service e catch all pentru toate metodele http)
+				<li>HttpServletRequest - modeleaza request HTTP
+				<li>HttpServletResponse - modeleaza response HTTP
+				<li>doGet(HttpServletRequest,HttpServletResponse) ... 
+				sunt apelate de servlet container (TOMCAT, etc)	cu o instanta de request si alta de response
+				<li> request.getContextPath() - radacina aplicatiei ("banking")
+				<li> request.getParameter("nume parametru")    
+				<li> request.getHeader("nume header")
+				<li> response.setHeader("nume header","Valoare header")
+				<li> response.setStatus
+				<li> response.addCookie,..
+				<li> response.getWriter() -> scriu body-ul 
+				<li> NAVIGAREA - client side navigation <a href=".."></a>/ Server side redirect - response.sendRedirect(newURL)
+				<li> ORICE SERVLET E MAPAT PE UN URL PATTERN : /servlets/account/show;/sales/info/*
+				<li> Maparea se face in web.xml - care se gaseste in directorul WEB-INF, SAU de la Java Servlet API 3.0+ cu @WebServlet("///")
+				<li> JSP - Java server pages - Template language pentru generare content (response HTTP)
+				<ul><li> orice JSP file -> compilat in servlet
+				<li> JSP e mai comod pentru generare HTML (dar nu numai, vezi exemplu cu JSON)
+				<li> JSP - <% %>, <%= %>, <%@ Page ... - directie
+				<li> JSP a fost urmat de JSF - Java server faces - templating si mai destept
+				</ul>
+				<li><b>Packaging a web app - web archives - WAR</b>
+				<pre>
+				  -ROOT--
+				         |META-INF
+				         |   -- context.xml (tomcat only)
+				         |
+				         |
+				         |WEB-INF
+				           -- web.xml
+				           -- jboss-web.xml (jboss only)
+				           -- beans.xml
+				           --classes--|
+				                      | (curs/banking/ws/AccountService.class)
+				           -- lib --|
+				                    | (jar-uri gen h2.jar,etc..)
+				         | images --| (jpg-uri, etc)
+				      - index.jsp
+				      - main.css
+				      - etc ..
+				</pre>
+				<br>
+				<b> REST SERVICES</b>
+				<li> REPRESENTATIONAL STATE TRANSFER - RESURSE + VERBE 
+				<li> REST FUNCTIONEAZA PESTE HTTP
+				<li> ACTIUNI (VERBE) IDEMPOTENTE - prin repetare (balbaire) NU se schimba rezultatul pe SERVER
+				   <i>GET</i>,<i>DELETE</i>,<i>PUT</i>
+				<li> VERBE NON IDEMPOTENTE - <i>POST</i>
+				<li> Resources - /xx/accounts(customers;transactions;addresses;) - SUBSTANTIVE
+				<li> Resursele se organizeaza pe arbori 
+				<li> Resource collections -
+				 <pre>
+				   /xxx/accounts
+				     -GET - returneaza List<Account>
+				     -POST (Account) - adauga account la collection
+				     -PUT /xxx/accounts/123 (Account) - actualizeaza account cu id=123
+				     -DELETE /xxx/accounts/123 - sterge account 123
+				     -GET /xxx/accounts/123 - returneaza account cu id 123
+				 </pre>
+				
+				
+	</div>
+</body>
+</html>
