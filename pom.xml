@@ -11,6 +11,7 @@
 		<module>simplebusiness</module>
 		<module>simpleweb</module>
 		<module>simpleswing</module>
+		<module>simplejpadao</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->

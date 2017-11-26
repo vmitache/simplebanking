@@ -1,10 +1,20 @@
 package curs.banking.model;
 
-public class Country {
-  private long mId;
-  private String mName;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-  
+@Entity
+@Table(schema="BANK",name="COUNTRY")
+public class Country {
+  @Column(name="ID")
+  @Id
+  @GeneratedValue
+  private long mId;
+  @Column(name="NAME")
+  private String mName;
   
   public Country() {
     super();
