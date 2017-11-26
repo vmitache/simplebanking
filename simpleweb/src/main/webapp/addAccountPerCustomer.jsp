@@ -1,10 +1,7 @@
-<%@page import="curs.banking.db.utils.DataSourceConnectionFactory"%>
 <%@page import="curs.banking.model.Currency"%>
 <%@page import="curs.banking.model.AccountType"%>
-<%@page import="curs.banking.business.AccountService"%>
 <%@page import="curs.banking.model.Account"%>
 <%@page import="java.util.Collection"%>
-<%@page import="curs.banking.business.CustomerService"%>
 <%@page import="curs.banking.model.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -17,8 +14,7 @@
 <body>
 	<h1>Adauga cont</h1>
 	<%
-		String scid = request.getParameter("custId");
-		Customer cust = new CustomerService(DataSourceConnectionFactory.factory()).loadCustomerById(Long.parseLong(scid));
+		Customer cust = (Customer)request.getAttribute("customer");
 	%>
 	<h2>Client</h2>
 	<br>
@@ -35,7 +31,7 @@
 			<TH>VALUTA</TH>
 		</TR>
 		<%
-			Collection<Account> accounts = new AccountService(DataSourceConnectionFactory.factory()).loadAccountsPerCustomerId(Long.parseLong(scid));
+			Collection<Account> accounts = (Collection<Account>)request.getAttribute("accounts");
 			for (Account acc : accounts) {
 		%>
 		<tr>
@@ -53,28 +49,23 @@
 			<%
 				for (AccountType at : AccountType.values()) {
 			%>
-			<option value="<%= at.name() %>"><%= at.name() %></option>
+			<option value="<%=at.name()%>"><%=at.name()%></option>
 
 			<%
 				}
 			%>
-			</select>
-			Valuta : <select name="currency">
+		</select> Valuta : <select name="currency">
 			<%
 				for (Currency cc : Currency.values()) {
 			%>
-				<option value="<%= cc.getId() %>"><%=cc.name()%></option>
+			<option value="<%=cc.getId()%>"><%=cc.name()%></option>
 
 			<%
 				}
 			%>
-			</select>
-			<br>
-		IBAN: <input type="text" name="iban" maxlength="32">
-		<br>
-		Sold: <input type="text" name="sold" maxlength="6" value="0">
-		<br>
-		<input type="hidden" name="custId" value="<%= scid %>">
+		</select> <br> IBAN: <input type="text" name="iban" maxlength="32">
+		<br> Sold: <input type="text" name="sold" maxlength="6" value="0">
+		<br> <input type="hidden" name="custId" value="<%=request.getAttribute("cid")%>">
 		<input type="submit" value="Adauga">
 	</FORM>
 </body>

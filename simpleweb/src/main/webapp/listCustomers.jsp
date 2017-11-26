@@ -39,7 +39,7 @@
 			<TD><%=cust.getAddress().getNumber()%></TD>
 			<TD><%=cust.getAddress().getPostalCode()%></TD>
 			<TD>
-				<form action="<%= request.getContextPath() %>/addAccountPerCustomer.jsp">
+				<form action="<%= request.getContextPath() %>/paac">
 				  <input type="hidden" value="<%= cust.getId() %>" name="custId">
 				  <input type="submit" value="Adauga cont">
 				</form>
@@ -50,7 +50,7 @@
 		%>
 	</TABLE>
 	<BR>
-	<a href="<%=request.getContextPath()%>/addCustomer.jsp">Adauga
+	<a href="<%=request.getContextPath()%>/cpa">Adauga
 		client</a>
 </body>
 </html>

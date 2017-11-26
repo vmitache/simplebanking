@@ -38,7 +38,7 @@
 			<TD><%=acc.getCustomer().getSSN()%></TD>
 			<TD><%=acc.getBank().getName()%></TD>
 			<TD>
-				<form action="<%= request.getContextPath() %>/addPaymentPerAccount.jsp">
+				<form action="<%= request.getContextPath() %>/pta">
 				  <input type="hidden" value="<%= acc.getId() %>" name="accountId">
 				  <input type="submit" value="Adauga plata">
 				</form>

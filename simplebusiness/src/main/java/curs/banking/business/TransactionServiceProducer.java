@@ -1,12 +1,12 @@
 package curs.banking.business;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import curs.banking.db.utils.IConnectionFactory;
 
-@ApplicationScoped
+@RequestScoped
 public class TransactionServiceProducer {
   @Inject
   private IConnectionFactory mConnFact;

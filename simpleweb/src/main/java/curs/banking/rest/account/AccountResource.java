@@ -1,6 +1,5 @@
 package curs.banking.rest.account;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Logger;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 
 import curs.banking.business.AccountService;
-import curs.banking.db.utils.DataSourceConnectionFactory;
 import curs.banking.model.Account;
 import curs.banking.model.AccountType;
 import curs.banking.model.Currency;
