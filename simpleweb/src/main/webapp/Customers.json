@@ -1,0 +1,22 @@
+[
+{
+  "nume":"Vasile",
+  "cnp":"1224345",
+  "varsta":23,
+  "casatorit":true,
+  "locuri_munca":[ {"oras":"Bucuresti"},{"oras" : "Cluj"}]
+},
+{
+  "nume":"Vasile",
+  "cnp":"1224345",
+  "varsta":23,
+  "casatorit":true,
+  "locuri_munca":[ {"oras":"Bucuresti"},{"oras" : "Cluj"}]
+}
+,{
+  "nume":"Vasile",
+  "cnp":"1224345",
+  "varsta":23,
+  "casatorit":true,
+  "locuri_munca":[ {"oras":"Bucuresti"},{"oras" : "Cluj"}]
+}]

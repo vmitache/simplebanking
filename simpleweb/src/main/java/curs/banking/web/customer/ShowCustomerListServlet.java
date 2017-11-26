@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,26 +38,21 @@ public class ShowCustomerListServlet extends HttpServlet {
 		CustomerService custService = new CustomerService();
 		try {
 			Collection<Customer> cl = custService.loadAllCustomers();
-			PrintWriter w = response.getWriter();
-			w.println("<!DOCTYPE html><head></head><body>");
-			////
-			w.println("<H1>Lista clienti</H1>");
-			w.println("<TABLE><TR><TH>Nume</TH><TH>CNP</TH><TH>Oras</TH><TH>Varsta</TH><TH>Sex</TH></TR>");
-			for(Customer cust : cl) {
-				w.append("<TR><TD>").append(cust.getName())
-				 .append("</TD><TD>")
-				 .append(cust.getSSN())
-				 .append("</TD><TD>")
-				 .append(cust.getAddress().getCity().getName())
-				 .append("</TD><TD>")
-				 .append("" + cust.getVarsta())
-				 .append("</TD><TD>")
-				 .append(cust.getSex().name())
-				 .append("</TD></TR>");
+			String contentType = request.getHeader("Accept");
+			String jspName = null;
+			if("application/json".equals(contentType)) {
+				jspName = "/listCustomersJSON.jsp";
+			} else {
+				jspName = "/listCustomers.jsp";
 
 			}
-			w.println("</TABLE>");
-			w.print("</body></html>");
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(jspName);
+			//!!!!
+			request.setAttribute("customers", cl);
+			dispatcher.forward(request,response);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

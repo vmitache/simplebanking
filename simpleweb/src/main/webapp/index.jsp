@@ -1,8 +1,10 @@
 <html>
 <body>
-<h2>Hello World! </h2>
-<br>
-<h2> First test </h2>
-<a href="WordOfTheDay">Word of the day</a>
+<h2>Welcome to our banking APP </h2>
+<hr>
+<a href="customers/show/all">Clientii nostri</a>
+<a href="accounts/show/all">Conturile noastre</a>
+<a href="transactions/show/all">Tranzactiile noastre</a>
+
 </body>
 </html>

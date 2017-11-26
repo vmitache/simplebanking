@@ -91,7 +91,7 @@ public class CustomerService {
     }
   }
 
-  public Customer createCustomer(Customer pCustomer, boolean pCommit) throws Exception {
+  public Customer createCustomer(Customer pCustomer) throws Exception {
     Connection conn = getConnection();
     try {
       conn.setAutoCommit(false);
@@ -103,11 +103,8 @@ public class CustomerService {
       CustomerDAO custDAO = new CustomerDAO(conn);
       pCustomer.setAddress(addressDAO.insert(pCustomer.getAddress()));// BE AWARE
       Customer cust = custDAO.insert(pCustomer);
-      if (pCommit) {
-        conn.commit();
-      } else {
-        conn.rollback();
-      }
+      conn.commit();
+
       return cust;
     } finally {
       SQLUtils.closeQuietly(conn);

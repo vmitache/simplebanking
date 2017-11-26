@@ -80,7 +80,7 @@ public class CustomerServiceTest {
     customer.setSex(SexEnum.M);
     customer.setSSN("xxxxxxxxxxxx");
     customer.setVarsta(44);
-    cs.createCustomer(customer, true);
+    cs.createCustomer(customer);
   }
 
 
