@@ -1,15 +1,40 @@
 package curs.banking.model;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@Entity
+@Table(schema = "BANK", name = "ACCOUNT")
 public class Account {
+  @Id
+  @GeneratedValue
+  @Column(name = "ID")
   private long mId;
+  @Column(name = "IBAN")
   private String mIBAN;
+  @ManyToOne
+  @JoinColumn(name = "BANK_ID")
   private Bank mBank;
+  @ManyToOne
+  @JoinColumn(name = "CUSTOMER_ID")
   private Customer mCustomer;
+  @Column(name = "AMOUNT")
   private double mAmount;
+  @Column(name = "ACCOUNT_TYPE")
+  @Enumerated(value = EnumType.STRING)
   private AccountType mAccountType;
+  @Column(name = "CURRENCY_ID")
+  @Convert(converter = CurrencyConvertor.class)
   private Currency mCurrency;
 
   public long getId() {
@@ -124,7 +149,5 @@ public class Account {
       return false;
     return true;
   }
-  
-  
 
 }

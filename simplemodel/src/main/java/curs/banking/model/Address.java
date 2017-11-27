@@ -1,10 +1,28 @@
 package curs.banking.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema="BANK",name="ADDRESS")
 public class Address {
+  @Id
+  @Column(name="ID")
+  @GeneratedValue
   private long mId;
+  @ManyToOne
+  @JoinColumn(name="CITY_ID")
   private City mCity;
+  @Column(name="STREET")
   private String mStreet;
+  @Column(name="NUMBER")
   private String mNumber;
+  @Column(name="POSTAL_CODE")
   private String mPostalCode;
 
   public long getId() {

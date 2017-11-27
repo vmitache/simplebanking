@@ -1,16 +1,38 @@
 package curs.banking.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
+@Entity
+@Table(schema="BANK",name="CUSTOMER")
 public class Customer {
+  @Id
+  @GeneratedValue
+  @Column(name="ID")
   private long mId;
+  @Column(name="NAME")
   private String mName;
+  @Column(name="SSN")
   private String mSSN;
+  @ManyToOne
+  @JoinColumn(name="ADDRESS_ID")
   private Address mAddress;
+  @Column(name="AGE")
   private Integer mVarsta;
+  @Column(name="SEX")
+  @Enumerated(value=EnumType.STRING)
   private SexEnum mSex;
 
   public long getId() {

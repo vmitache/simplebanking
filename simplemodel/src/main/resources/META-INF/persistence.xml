@@ -17,6 +17,8 @@
 			<property name="javax.persistence.jdbc.user" value="SA" />
 			<!-- The database password -->
 			<property name="javax.persistence.jdbc.password" value="" />
+			<!-- SHOW SQL -->
+			<property name = "hibernate.show_sql" value = "true" />
 		</properties>
 	</persistence-unit>
 </persistence>
