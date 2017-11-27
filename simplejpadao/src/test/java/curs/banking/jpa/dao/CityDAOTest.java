@@ -39,7 +39,7 @@ public class CityDAOTest {
 		city.setCountry(country);
 		city.setName("Faurei");
 		CityDAO cityDAO = new CityDAO(mEntityManager);
-		city = cityDAO.create(city);
+		city = cityDAO.insert(city);
 		mEntityManager.getTransaction().commit();
 		assertEquals(city, cityDAO.findById(city.getId()));
 	}

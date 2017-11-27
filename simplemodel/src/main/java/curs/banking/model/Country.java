@@ -13,7 +13,7 @@ public class Country {
   @Id
   @GeneratedValue
   private long mId;
-  @Column(name="NAME")
+  @Column(name="NAME",nullable=false)
   private String mName;
   
   public Country() {

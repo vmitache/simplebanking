@@ -85,6 +85,14 @@
 	  <li>DAO - Fiecare Obiect persistent are o clasa ajutatoare 
 	  <li>Proxy - DI
 	  <li>Decorator - DI
+	  <li>MVC - Model View Controller
+	  <ol>
+	    <li>Se separa prezentarea de business logic 
+	    <li>Controller - este responsabil cu modificarea datelor in urma actiunilor din view 
+	    <li>Controller - este responsabil cu navigarea
+	    <li>Controller - implementeaza constrangeri de business logic
+	    <li>View - este responsabil cu afisarea si interactiunea cu userul
+	  </ol>
 	  <li>GOF (Gang of four) -lista de patterns
 	  <br>
 	  <b>SQL / JDBC/ Baze relationale</b>
@@ -228,8 +236,126 @@
 				     -DELETE /xxx/accounts/123 - sterge account 123
 				     -GET /xxx/accounts/123 - returneaza account cu id 123
 				 </pre>
-				
-				
+				<br>
+				<b>DEPENDENCY INJECTION - DI</b>
+				<li>Inversion of control - don't call us, we call you
+				<li>Este asigurat de un framework si API
+				  <ol>
+				    <li>CDI - Context dependency injection (API - @Inject,@Produces,@PostConstruct) - pentru JEE6/JEE7; implementare WELD
+				    <li>Spring DI - alt api + framework - alte annotari
+				    <li> Google Guice - alt api + framework
+				    <li> Google DAGGER 1/DAGGER 2 - api + framework (generare statica de cod) 
+				  </ol>
+				<li> Type safety - cel mai bun contract pe tipul de date injectat
+				<li> Lifecycle - Scopes - 
+				  <ul>
+				    <li>ApplicationScope - obiecte alive pe durata aplicatiei 
+				    <li>SessionScope - obiecte alive pe durata sesiunii utilizator (HTTPSession)
+				      - un set de obiecte pentru FIECARE SESSION
+				     <li>RequestScope - obiecte alive pe durata unui request (cel mai scurt lifecycle)
+				     <li>ConversatioScope - asta e intalnit la JSF de exemple 
+				  </ul>
+				 <li>Lifecycle - @PostConstruct, @PreDestroy
+				   <pre>
+				     class XXX {
+				     @PostConstruct
+				       void init() {
+				       ..
+				       }
+				       
+				       @PreDestroy
+				       void destroy() {
+				       }
+				     }
+				   
+				     @Inject
+				     XXX xx;
+				     
+				     -- se injecteaza instanta
+				     -- xxx= new XXX() - o face DI framework
+				     -- xxx.init() - o face DI framework
+				     -- lifecycle - obiect alive
+				     -- xxx.destroy() - o face DI framework
+				     -- xxx este garbage collected
+				   </pre>
+				 <li> Injection types : <b>Field</b>,<b>Method</b>,<b>Constructor</b>
+				 <pre>
+				  @SessionScope
+				  class XXX {
+				    
+				  }
+				 
+				  @SessionScope
+				  class Pufi1 {
+				 
+				 	   @Inject
+				 	   //@Named("x")
+				 	   private XXX xxx; // Field injection
+				 	   @Inject
+				 	   //@Named("y")
+				 	   private XXX zzz;
+				 	 }
+				 	 
+				 	 // For method injection
+				 	 @SessionScope
+				 	 class Pufi2 {
+				 	   private XXX yyy;
+				 	 
+				 	   @Inject
+				 	   void puneXXXValue(XXX pXXX) {
+				 	     yyy = pXXX;
+				 	     ... logging
+				 	   }
+				 	 }
+				 	 
+				 	 //For constructor injection
+				 	 @RequestScope
+				 	 class Pufi3 {
+				 	   private XXX yyy;
+				 	 
+				 	   @Inject
+				 	   Pufi3(XXX pXXX) {
+				 	     yyy = pXXX;
+				 	     ... logging
+				 	   }
+				 	 }
+				 </pre>
+				 <li>Injection mechanism
+				   <ul>
+				     <li>new XXX() + injectie / new XXX(Injected params) + injectie (@PostConstruct)
+				     <li>foloseste Producers 
+				       <pre>
+				        @ApplicationScope
+				        class MyProducerDeXXX {
+				       
+				         @Produces
+				         XXX createMyInstanceDeXXX() {
+				           XXX xxx = new XXX(33);
+				           xxx.setAia();
+				           xxx.setAilalata();
+				           return xxx;
+				         }
+				        }
+				       </pre>
+				   </ul>
+				<br>
+				<b>JPA - Java persistence API</b>
+				<li>SQL - JAVA impedance mismatch
+				<li>ORM - Object relational mapping - Modul declarativ (JDBC imperativ)de interactie obiecte Java cu SQL Databases
+				<li>ORM implementation - countless !!!!
+				 <ul>
+				   <li>Hibernate
+				   <li>Eclipse Link
+				   <li>Batik, iBatis
+				   <li> JPA - standard API 2.1, parte din JEE6/7
+				    - JPA is the API, dar frameworkul este Hibernate,Eclipse-Link
+				 </ul>
+				 <li>JPA - Entities, Entity managers
+				 <li>Entities - java POJO cu adnotari - mapare clasa pe tabele, 
+				   mapping campuri pe coloane in tabele, 
+				   mapping object relations to table relation
+				 <li>EntityManager - manage entity lifecycle , caching, transactions
+				 <li>Query Language - JPQL - NU E SQL DAR SEAMANA TARE
 	</div>
 </body>
-</html>
+</html> 

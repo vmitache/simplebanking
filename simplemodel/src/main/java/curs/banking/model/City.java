@@ -17,7 +17,7 @@ public class City {
 	private long mId;
 	@Column(name = "NAME")
 	private String mName;
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "COUNTRY_ID")
 	private Country mCountry;
 

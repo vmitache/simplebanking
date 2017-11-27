@@ -5,8 +5,9 @@
 	<persistence-unit name="banking" transaction-type="RESOURCE_LOCAL">
 		<!-- Persistence provider -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>curs.banking.model.City</class>
+		<class>curs.banking.model.Country</class>
 		<!-- Entity classes -->
-		<class>com.javahelps.jpa.Student</class>
 		<properties>
 			<!-- The JDBC driver of your database -->
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

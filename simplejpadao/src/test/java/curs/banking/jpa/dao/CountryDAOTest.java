@@ -33,11 +33,11 @@ public class CountryDAOTest {
 		mEntityManager.getTransaction().begin();
 		CountryDAO cdao = new CountryDAO(mEntityManager);
 		Country c = new Country();
-		c.setName("Bahrein");
-		Country c1 = cdao.create(c);
+		c.setName("BahreinUL xxx");
+		Country c1 = cdao.insert(c);
 		mEntityManager.getTransaction().commit();
 
-		Assert.assertEquals("Bahrein", c1.getName());
+		Assert.assertEquals("BahreinUL xxx", c1.getName());
 		Country c2 = cdao.findById(c1.getId());
 		Assert.assertEquals(c1, c2);
 	}

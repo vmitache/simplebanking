@@ -15,7 +15,7 @@ public class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao
 	}
 
 	@Override
-	public T create(T t) {
+	public T insert(T t) {
 		this.mEntityManager.persist(t);
 		return t;
 	}
@@ -38,6 +38,6 @@ public class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao
 
 	@Override
 	public Collection<T> findAll() {
-		return mEntityManager.createQuery("SELECT t FROM " + mEntityClass.getName() + " t").getResultList();
+		return mEntityManager.createQuery("SELECT x FROM " + mEntityClass.getName() + " x").getResultList();
 	}
 }
