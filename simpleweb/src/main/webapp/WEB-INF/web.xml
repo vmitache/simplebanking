@@ -46,13 +46,19 @@
       <url-pattern>/*</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+      
     </web-resource-collection>
     <auth-constraint>
       <role-name>bankmanager</role-name>
       <role-name>bankclerk</role-name>
     </auth-constraint>
     <user-data-constraint>
+      <!-- 
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       -->
       <transport-guarantee>NONE</transport-guarantee>
+      
     </user-data-constraint>
   </security-constraint>
   <login-config>

@@ -198,6 +198,29 @@
 				<li> JSP - <% %>, <%= %>, <%@ Page ... - directie
 				<li> JSP a fost urmat de JSF - Java server faces - templating si mai destept
 				</ul>
+				<li><b>Security</b>
+				  <ol>
+				    <li>Authentication - who's who - User <- Credential
+				      <ul>
+				        <li>web.xml - security constraints
+				        <li>authentication mode - form - user name, password
+				        / realm - mecanismul de verificare parola per user
+				        / realms are non standard  - exista si la jboss,tomcat, jetty, weblogic un database realm
+				        / database realm - tabela useri (cu parole), tabela user-roluri
+				        <li> request.getUserPrincipal() != null SUNT AUTENTIFICAT
+				      </ul>
+				    <li>Authorization - who's doing what - User <-> Roles
+				      <ul>
+				        <li>Tot realm-ul asociaza userii cu rolurile
+				        <li>request.isUserInRole("rolName")
+				        <li> In EJB, sau SpringSecurity @RolesAllowed("role")
+				      </ul>
+				    <li>Privacy/confidentiality - cryptography
+				      <ul>
+				        <li>https - SSL/TLS - Certificates
+				        <li>Electronic signature
+				      </ul>
+				  </ol>
 				<li><b>Packaging a web app - web archives - WAR</b>
 				<pre>
 				  -ROOT--
@@ -206,7 +229,7 @@
 				         |
 				         |
 				         |WEB-INF
-				           -- web.xml
+				           -- web.xml,
 				           -- jboss-web.xml (jboss only)
 				           -- beans.xml
 				           --classes--|
@@ -354,8 +377,57 @@
 				 <li>Entities - java POJO cu adnotari - mapare clasa pe tabele, 
 				   mapping campuri pe coloane in tabele, 
 				   mapping object relations to table relation
-				 <li>EntityManager - manage entity lifecycle , caching, transactions
+				   mapping entity relations - @OneToOne,
+				     @OneToMany, @ManyToOne, @ManyToMany
+				 <li>EntityManager 
+				   - manage entity lifecycle , caching, transactions
+				   - has close method as the Connection !!!!
+				   <ul>
+				     <li> persist - creeaza o noua inregistrare pentru o entitate noua - INSERT
+				     <li> delete - sterge inregistrarea pentru o entitate
+				     <li> merge - modifica un obiect incarcat din baza sql cu datele din referinta folosita ca parametru la metoda
+				     <li> query - JPQL ('object oriented' SQL)
+				     <li> transaction management -
+				         em.getTransaction() - Transaction - begin,commit,rollback 
+				   </ul>
 				 <li>Query Language - JPQL - NU E SQL DAR SEAMANA TARE
+				 <li>Hibernate notices - 
+				   <ul>
+				    <li> same annotations + some extra annotation
+				    <li> Session instead EntityManager
+				   </ul>
+				 <li> Entities lifecycle 
+				   NEW, MANAGED, DETACHED
+				   NEW -> MANAGED - via persist
+				   -> MANAGED - via find, query, ...
+				   MANAGED -> DETACHED - via flush, commit,close
+				   DETACHED -> MANAGED - merge
+		<br>
+		<b>Maven, Gradle</b>
+		<li>E un build management system / scris in java
+		<li> pom.xml - fisierul care descrie procesul de build
+		<li> in pom avem partea de dependency
+		<li> plugins - mecanismul extensibil de build sepcializat
+		  <ul>
+		    <li>Compilare</li>
+		    <li>Jar</li>
+		    <li>War</li>
+		    <li>Testing</li>
+		    <li>sql-maven-plugin - folosit de noi in testing</li>
+		    <li>Plugin pentru tomcat</li>
+		    <li>Plugin pentru JBoss</li>
+		  </ul>
+		<li>sub module - dependenta intre submodule/
+		  simpleweb -> simplebusiness -> simpledao -> simplemodel
+		<br>
+		<b>Source control - GIT</b>
+		<li>Management surse - cu versiuni, branching si merging
+		<li>git checkout - trage o copie locala a repositoriului central
+		<li>git add - adauga fisiere noi la index  (fisiere modificate)
+		<li>git commit - salveaza intr-o noua versiune ce s-a modificat de la ultimit checkout/commit
+		<li>git pull - actualizeaza repositoriul local cu ce s-a mai facut pe server
+		<li>git push - arunca pe repository-ul central modificarile comise local
+		<li>git merge
 	</div>
 </body>
 </html> 

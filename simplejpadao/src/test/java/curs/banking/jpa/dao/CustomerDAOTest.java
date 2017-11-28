@@ -25,6 +25,9 @@ public class CustomerDAOTest {
 
   @Test
   public void testFindById() {
+    Customer c = new CustomerDAO(mEntityManager).findById(1L);
+    System.out.println(c.getClass());
+
     assertEquals("Popescu", new CustomerDAO(mEntityManager).findById(1L).getName());
   }
 
@@ -32,7 +35,7 @@ public class CustomerDAOTest {
   public void testFindAll() {
     assertTrue(new CustomerDAO(mEntityManager).findAll().size() > 0);
   }
-  
+
   @Test
   public void testFindByName() {
     assertTrue(new CustomerDAO(mEntityManager).findByName("Ionesc%").size() == 1);
@@ -41,21 +44,29 @@ public class CustomerDAOTest {
   @Test
   public void testInsert() {
     mEntityManager.getTransaction().begin();
-    Address address = new AddressDAO(mEntityManager).findById(1L);
-    Customer cust = new Customer();
-    cust.setName("Pafnutie");
-    cust.setSSN("1111111111");
-    cust.setAddress(address);
-    cust.setVarsta(22);
-    cust.setSex(SexEnum.M);
-    cust = new CustomerDAO(mEntityManager).insert(cust);
-    mEntityManager.getTransaction().commit();
-    assertTrue(cust.equals(new CustomerDAO(mEntityManager).findById(cust.getId())));
+    try {
+      Address address = new AddressDAO(mEntityManager).findById(1L);
+      Customer cust = new Customer();
+      cust.setName("Pafnutie111");
+      cust.setSSN("1111111111");
+      cust.setAddress(address);
+      cust.setVarsta(22);
+      cust.setSex(SexEnum.M);
+      cust = new CustomerDAO(mEntityManager).insert(cust);
+      mEntityManager.getTransaction().commit();
+
+      assertTrue(cust.equals(new CustomerDAO(mEntityManager).findById(cust.getId())));
+
+    } catch(Exception ex) {
+      mEntityManager.getTransaction().rollback();
+    } finally {
+      
+    }
   }
 
   @Test
   public void testUpdate() {
-    
+
   }
 
   @Test
